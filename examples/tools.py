@@ -1,27 +1,21 @@
 from ollama import ChatResponse, chat
 
-
 def add_two_numbers(a: int, b: int) -> int:
-  """
-  Add two numbers
-
-  Args:
-    a (int): The first number
-    b (int): The second number
-
-  Returns:
-    int: The sum of the two numbers
-  """
-  return a + b
-
+  # without casting to integer code gives error sometimes since it treats it as a string
+  a1 = int(a)
+  b1 = int(b)
+  c = a1 + b1
+  return c
 
 def subtract_two_numbers(a: int, b: int) -> int:
-  """
-  Subtract two numbers
-  """
-  return a - b
+  # without casting to integer code gives error sometimes since it treats it as a string
+  a1 = int(a)
+  b1 = int(b)
+  c = a1 - b1
+  return c
 
-
+'''
+# This block of code is not needed . Code works without that also. 
 # Tools can still be manually defined and passed into chat
 subtract_two_numbers_tool = {
   'type': 'function',
@@ -38,6 +32,7 @@ subtract_two_numbers_tool = {
     },
   },
 }
+'''
 
 messages = [{'role': 'user', 'content': 'What is three plus one?'}]
 print('Prompt:', messages[0]['content'])
@@ -50,7 +45,7 @@ available_functions = {
 response: ChatResponse = chat(
   'llama3.1',
   messages=messages,
-  tools=[add_two_numbers, subtract_two_numbers_tool],
+  tools=[add_two_numbers, subtract_two_numbers],
 )
 
 if response.message.tool_calls:
